@@ -94,6 +94,17 @@ class Sum(Function):
         return gx
 
 
+class Matmul(Function):
+    def forward(self, x, W):
+        y = np.dot(x, W)
+        return y
+    
+    def backward(self, gy):
+        x, W = self.inputs
+        gx = matmul(gy, W.T)
+        gW = matmul(x.T, gy)
+        return gx, gW
+
 def sin(x):
     return Sin()(x)
 
@@ -130,3 +141,7 @@ def sum_to(x, shape):
 
 def sum(x, axis=None, keepdims=False):
     return Sum(axis, keepdims)(x) 
+
+
+def matmul(x, W):
+    return Matmul()(x, W)
