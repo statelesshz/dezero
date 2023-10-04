@@ -103,6 +103,10 @@ class Variable:
                         y().grad = None
 
 
+class Parameter(Variable):
+    pass
+
+
 class Config:
     enable_backprop = True
 
